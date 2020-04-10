@@ -178,7 +178,9 @@ bot.on("messageCreate", msg => {
             msg.channel.createMessage("<:orange:697688190219452496> | You bypassed the cooldown check.");
           }
           action.actions(`${msg.member ? "guild" : "dm"}`, "command", cmd, body, msg);
-          cooldowns[msg.author.id].push({module: module, actionSet: actionSet, expires: new Date().getTime() + action.cooldown * 1000, timeout: setTimeout(() => {cooldowns[msg.author.id].splice(cooldowns[msg.author.id].indexOf(cooldowns[msg.author.id].find(c => c.module == module && c.actionSet == actionSet)), 1);}, action.cooldown * 1000, module, actionSet)});
+          if (action.cooldown > 0) {
+            cooldowns[msg.author.id].push({module: module, actionSet: actionSet, expires: new Date().getTime() + action.cooldown * 1000, timeout: setTimeout(() => {cooldowns[msg.author.id].splice(cooldowns[msg.author.id].indexOf(cooldowns[msg.author.id].find(c => c.module == module && c.actionSet == actionSet)), 1);}, action.cooldown * 1000, module, actionSet)});
+          }
         }
         else {
           calc = (cooldowns[msg.author.id].find(c => c.module == module && c.actionSet == actionSet).expires - new Date().getTime()) / 1000;
