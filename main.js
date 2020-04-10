@@ -199,8 +199,20 @@ bot.on("messageCreate", msg => {
   });
 });
 
-bot.on("error", err => {
-  console.log("An error occurred:\n" + err);
+bot.on("shardDisconnect", (err, id) => {
+  console.log("Shard " + id + " has disconnected.");
+});
+
+bot.on("shardPreReady", id => {
+  console.log("Shard " + id + " pre-ready.");
+});
+
+bot.on("shardReady", id => {
+  console.log("Shard " + id + " ready.");
+});
+
+bot.on("shardResume", id => {
+  console.log("Shard " + id + " resumed.");
 });
 
 bot.connect();
