@@ -49,6 +49,7 @@ module.exports.modulesArr = modulesArr;
 
 console.log("Loading modules...");
 
+registeredTriggers = {};
 fs.readdir("modules", {withFileTypes: true}, (err, files) => {
   files.forEach(f => {
     if (!f.isDirectory()) {console.log("[!] Caught a file (" + f.name + ") in the modules folder. I won't load this, but shouldn't it be in a subfolder?");}
@@ -68,9 +69,13 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
             }
             else {
               modulesArr[f.name][sf.name] = reload("./modules/" + f.name + "/" + sf.name);
-              if (modulesArr[f.name][sf.name].events.includes("preready")) {
-                console.log("Action Set: " + sf.name.slice(0, -3) + " (" + f.name + ") | Event: preready");
-                modulesArr[f.name][sf.name].actions(null, "event", "preready", null, null);
+              modulesArr[f.name][sf.name].triggers.forEach(t => {
+                if (!registeredTriggers[t]) {registeredTriggers[t] = [];}
+                registeredTriggers[t].push({module: f.name, actionSet: sf.name});
+              });
+              if (modulesArr[f.name][sf.name].events.includes("preReady")) {
+                console.log("Action Set: " + sf.name.slice(0, -3) + " (" + f.name + ") | Event: preReady");
+                modulesArr[f.name][sf.name].actions(null, "event", "preReady", null, null);
               }
             }
           }
@@ -78,6 +83,12 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
       });
     }
   });
+});
+
+Object.keys(registeredTriggers).forEach(rt => {
+  if (registeredTriggers[rt].length > 1) {
+    console.log("[!] Trigger " + rt + " is used more than once (" + registeredTriggers[rt].map(t => t.actionSet + " in " + t.module).join(", ") + "). This means that I will reply multiple times when these triggers are used.");
+  }
 });
 
 console.log("Connecting to Discord...");
