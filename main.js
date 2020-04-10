@@ -75,6 +75,15 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
   });
 });
 
+Object.keys(modulesArr).forEach(m => {
+  Object.keys(modulesArr[m]).forEach(ac => {
+    if (modulesArr[m][ac].events.includes("preready")) {
+      console.log("Action Set: " + ac.slice(0, -3) + " (" + m + ") | Event: preready");
+      modulesArr[m][ac].actions(null, "event", "preready", null, null);
+    }
+  });
+});
+
 console.log("Connecting to Discord...");
 
 bot.on("ready", () => {
