@@ -132,10 +132,10 @@ bot.on("messageCreate", msg => {
     });
     if (exists) {
       if (!msg.member) {
-        console.log("User " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") triggered the " + actionSet.slice(0, -3) + " action set in " + module + " module by command " + cmd + ".");
+        console.log("Action Set: " + actionSet.slice(0, -3) + " (" + module + ") | Command: " + cmd + " | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ")");
       }
       else {
-        console.log("User " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") in " + msg.channel.guild.name + " (" + msg.channel.guild.id + ") triggered the " + actionSet.slice(0, -3) + " action set in " + module + " module by command " + cmd + ".");
+        console.log("Action Set: " + actionSet.slice(0, -3) + " (" + module + ") | Command: " + cmd + " | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") | Guild: " + msg.channel.guild.name + " (" = msg.channel.guild.id + ")");
       }
       perms = action.perms;
       if (perms.includes("managerOnly")) {
