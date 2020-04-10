@@ -8,6 +8,7 @@ var modulesArr = {};
 var cooldowns = {};
 
 initialTime = new Date().getTime();
+console.log("");
 console.log("        ,/");
 console.log("      ,'/        ______          /\\ ___");
 console.log("    ,' /        |___  /         |/\\|__ \\");
