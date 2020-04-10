@@ -67,6 +67,10 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
             }
             else {
               modulesArr[f.name][sf.name] = reload("./modules/" + f.name + "/" + sf.name);
+              if (modulesArr[f.name][sf.name].events.includes("preready")) {
+                console.log("Action Set: " + sf.name.slice(0, -3) + " (" + f.name + ") | Event: preready");
+                modulesArr[f.name][sf.name].actions(null, "event", "preready", null, null);
+              }
             }
           }
         });
