@@ -191,6 +191,14 @@ bot.on("messageCreate", msg => {
       }
     }
   }
+  Object.keys(modulesArr).forEach(ma => {
+    Object.keys(modulesArr[ma]).forEach(ac => {
+      if (modulesArr[ma][ac].events.includes("messageCreate")) {
+        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageCreate | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ")" + `${!msg.member ? "" : " | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")"}`);
+        modulesArr[ma][ac].actions(`${msg.member ? "guild" : "dm"}`, "event", "messageCreate", null, msg);
+      }
+    });
+  });
 });
 
 bot.on("error", err => {
