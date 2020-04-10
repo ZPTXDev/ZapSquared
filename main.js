@@ -134,6 +134,26 @@ bot.on("ready", () => {
   });
 });
 
+bot.on("connect", id => {
+  console.log("Shard" + id + " connecting.");
+});
+
+bot.on("shardDisconnect", (err, id) => {
+  console.log("Shard " + id + " disconnected.");
+});
+
+bot.on("shardPreReady", id => {
+  console.log("Shard " + id + " pre-ready.");
+});
+
+bot.on("shardReady", id => {
+  console.log("Shard " + id + " ready.");
+});
+
+bot.on("shardResume", id => {
+  console.log("Shard " + id + " resumed.");
+});
+
 bot.on("messageCreate", msg => {
   text = msg.content.split(" ");
   prefix = settings.get("prefix");
@@ -209,26 +229,6 @@ bot.on("messageCreate", msg => {
       }
     });
   });
-});
-
-bot.on("connect", id => {
-  console.log("Shard" + id + " connecting.");
-});
-
-bot.on("shardDisconnect", (err, id) => {
-  console.log("Shard " + id + " disconnected.");
-});
-
-bot.on("shardPreReady", id => {
-  console.log("Shard " + id + " pre-ready.");
-});
-
-bot.on("shardReady", id => {
-  console.log("Shard " + id + " ready.");
-});
-
-bot.on("shardResume", id => {
-  console.log("Shard " + id + " resumed.");
 });
 
 bot.connect();
