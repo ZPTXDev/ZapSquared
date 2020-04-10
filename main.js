@@ -71,6 +71,10 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
               modulesArr[f.name][sf.name] = reload("./modules/" + f.name + "/" + sf.name);
               modulesArr[f.name][sf.name].triggers.forEach(t => {
                 if (!registeredTriggers[t]) {registeredTriggers[t] = [];}
+                else {
+                  timesCount = registeredTriggers[t].length + 1;
+                  console.log("[!] Saw trigger " + t + " " + timesCount + " times (in " + sf.name + ", part of " + f.name + "). I'll only register the first trigger, so this trigger will be ignored.");
+                }
                 registeredTriggers[t].push({module: f.name, actionSet: sf.name});
               });
               if (modulesArr[f.name][sf.name].events.includes("preReady")) {
@@ -83,12 +87,6 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
       });
     }
   });
-});
-
-Object.keys(registeredTriggers).forEach(rt => {
-  if (registeredTriggers[rt].length > 1) {
-    console.log("[!] Trigger " + rt + " is used more than once (" + registeredTriggers[rt].map(t => t.actionSet + " in " + t.module).join(", ") + "). This means that I will reply multiple times when these triggers are used.");
-  }
 });
 
 console.log("Connecting to Discord...");
