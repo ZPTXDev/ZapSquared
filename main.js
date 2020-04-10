@@ -6,6 +6,7 @@ var fs = require('fs');
 var bot = new Eris(settings.get("token"));
 var modulesArr = {};
 var cooldowns = {};
+var ready = false;
 
 initialTime = new Date().getTime();
 console.log("");
@@ -92,34 +93,37 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
 console.log("Connecting to Discord...");
 
 bot.on("ready", () => {
-  console.log("\nLogged in to Discord as " + bot.user.username + "#" + bot.user.discriminator + " (" + bot.user.id + ")");
-  console.log("Connected to " + bot.guilds.size + " guilds and " + bot.users.size + " users");
-  managers = settings.get("managers");
-  failedMgrLoad = [];
-  mgrList = [];
-  managers.forEach(manager => {
-    if (!bot.users.get(manager)) {
-      failedMgrLoad.push(manager);
+  if (!ready) {
+    console.log("\nLogged in to Discord as " + bot.user.username + "#" + bot.user.discriminator + " (" + bot.user.id + ")");
+    console.log("Connected to " + bot.guilds.size + " guilds and " + bot.users.size + " users");
+    managers = settings.get("managers");
+    failedMgrLoad = [];
+    mgrList = [];
+    managers.forEach(manager => {
+      if (!bot.users.get(manager)) {
+        failedMgrLoad.push(manager);
+      }
+      else {
+        mgrList.push(bot.users.get(manager).username + "#" + bot.users.get(manager).discriminator + " (" + manager + ")");
+      }
+    });
+    if (mgrList.length == 0) {mgrList.push("None");}
+    console.log("Managers: " + mgrList.join(", "));
+    console.log("Modules (" + Object.keys(modulesArr).length + "): " + Object.keys(modulesArr).map(module => {return module + " (" + Object.keys(modulesArr[module]).length + ")"}).join(", "));
+    console.log("Invite Link: https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot&permissions=8");
+    if (mgrList[0] == "None") {
+      settings.set("managers", ["Paste ID here"]);
+      console.log("\n--------------------\nThe user ID you provided in settings.json is incorrect, or I'm unable to find you in a mutual server (this can happen if you didn't add me to a server with you).\nNeed help? Visit https://s.zptx.icu/zapdiscord.\n--------------------");
+      process.exit(1);
     }
-    else {
-      mgrList.push(bot.users.get(manager).username + "#" + bot.users.get(manager).discriminator + " (" + manager + ")");
+    if (failedMgrLoad.length > 0) {
+      console.log("[!] One or more manager IDs are incorrect (or I'm not in a mutual server with them): " + failedMgrLoad.join(", ") + "\n");
     }
-  });
-  if (mgrList.length == 0) {mgrList.push("None");}
-  console.log("Managers: " + mgrList.join(", "));
-  console.log("Modules (" + Object.keys(modulesArr).length + "): " + Object.keys(modulesArr).map(module => {return module + " (" + Object.keys(modulesArr[module]).length + ")"}).join(", "));
-  console.log("Invite Link: https://discordapp.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot&permissions=8");
-  if (mgrList[0] == "None") {
-    settings.set("managers", ["Paste ID here"]);
-    console.log("\n--------------------\nThe user ID you provided in settings.json is incorrect, or I'm unable to find you in a mutual server (this can happen if you didn't add me to a server with you).\nNeed help? Visit https://s.zptx.icu/zapdiscord.\n--------------------");
-    process.exit(1);
+    timeTaken = (new Date().getTime() - initialTime) / 1000;
+    console.log("\nReady! ("+ timeTaken +"s)");
+    bot.options.defaultImageFormat = "png";
+    ready = true;
   }
-  if (failedMgrLoad.length > 0) {
-    console.log("[!] One or more manager IDs are incorrect (or I'm not in a mutual server with them): " + failedMgrLoad.join(", ") + "\n");
-  }
-  timeTaken = (new Date().getTime() - initialTime) / 1000;
-  console.log("\nReady! ("+ timeTaken +"s)");
-  bot.options.defaultImageFormat = "png";
 });
 
 bot.on("messageCreate", msg => {
