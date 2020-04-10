@@ -124,6 +124,14 @@ bot.on("ready", () => {
     bot.options.defaultImageFormat = "png";
     ready = true;
   }
+  Object.keys(modulesArr).forEach(ma => {
+    Object.keys(modulesArr[ma]).forEach(ac => {
+      if (modulesArr[ma][ac].events.includes("ready")) {
+        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: ready");
+        modulesArr[ma][ac].actions(null, "event", "ready", null, null);
+      }
+    });
+  });
 });
 
 bot.on("messageCreate", msg => {
@@ -203,8 +211,12 @@ bot.on("messageCreate", msg => {
   });
 });
 
+bot.on("connect", id => {
+  console.log("Shard" + id + " connecting.");
+});
+
 bot.on("shardDisconnect", (err, id) => {
-  console.log("Shard " + id + " has disconnected.");
+  console.log("Shard " + id + " disconnected.");
 });
 
 bot.on("shardPreReady", id => {
