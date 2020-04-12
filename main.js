@@ -103,6 +103,7 @@ registeredTriggers = {};
 fs.readdir("modules", {withFileTypes: true}, (err, files) => {
   files.forEach(f => {
     if (!f.isDirectory()) {console.log("[!] Caught a file (" + f.name + ") in the modules folder. I won't load this, but shouldn't it be in a subfolder?");}
+    else if (f.name.includes(" ")) {console.log("[!] Spaces in module names can cause issues. I won't load " + f.name + ".");}
     else {
       modulesArr[f.name] = [];
       fs.readdir("modules/" + f.name, {withFileTypes: true}, (err, subfiles) => {
