@@ -126,13 +126,13 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
                 if (!registeredTriggers[t]) {registeredTriggers[t] = [];}
                 else {
                   timesCount = registeredTriggers[t].length + 1;
-                  console.log("[!] Saw trigger " + t + " " + timesCount + " times (in " + sf.name + ", part of " + f.name + "). I'll only register the first trigger, so this trigger will be ignored.");
+                  console.log("[!] Saw trigger " + t + " " + timesCount + " times (in " + sf.name.slice(0, -3) + ", part of " + f.name + "). I'll only register the first trigger, so this trigger will be ignored.");
                 }
-                registeredTriggers[t].push({module: f.name, actionSet: sf.name});
+                registeredTriggers[t].push({module: f.name, actionSet: sf.name.slice(0, -3)});
               });
-              if (modulesArr[f.name][sf.name].events.includes("preReady")) {
+              if (modulesArr[f.name][sf.name.slice(0, -3)].events.includes("preReady")) {
                 console.log("Action Set: " + sf.name.slice(0, -3) + " (" + f.name + ") | Event: preReady");
-                modulesArr[f.name][sf.name].actions(null, "event", "preReady", null, null);
+                modulesArr[f.name][sf.name.slice(0, -3)].actions(null, "event", "preReady", null, null);
               }
             }
           }
