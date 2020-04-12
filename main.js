@@ -121,8 +121,8 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
             }
             else if (sf.name.includes(" ")) {console.log("[!] Spaces in action set names can cause issues. I won't load " + sf.name + " (in " + f.name + ").");}
             else {
-              modulesArr[f.name][sf.name] = reload("./modules/" + f.name + "/" + sf.name);
-              modulesArr[f.name][sf.name].triggers.forEach(t => {
+              modulesArr[f.name][sf.name.slice(0, -3)] = reload("./modules/" + f.name + "/" + sf.name);
+              modulesArr[f.name][sf.name.slice(0, -3)].triggers.forEach(t => {
                 if (!registeredTriggers[t]) {registeredTriggers[t] = [];}
                 else {
                   timesCount = registeredTriggers[t].length + 1;
