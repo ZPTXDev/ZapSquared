@@ -274,7 +274,7 @@ bot.on("messageCreate", msg => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageCreate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageCreate | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ")" + `${!msg.member ? "" : " | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")"}`);
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageCreate | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ")" + `${!msg.member ? "" : " | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")"}`);
         modulesArr[ma][ac].actions(`${msg.member ? "guild" : "dm"}`, "event", "messageCreate", null, msg);
       }
     });
@@ -285,7 +285,7 @@ bot.on("channelCreate", channel => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("channelCreate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: channelCreate | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: channelCreate | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "channelCreate", null, channel);
       }
     });
@@ -296,7 +296,7 @@ bot.on("channelDelete", channel => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("channelDelete")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: channelDelete | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: channelDelete | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "channelDelete", null, channel);
       }
     });
@@ -307,7 +307,7 @@ bot.on("channelPinUpdate", (channel, timestamp, oldTimestamp) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("channelPinUpdate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: channelPinUpdate | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: channelPinUpdate | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "channelPinUpdate", null, {channel: channel, timestamp: timestamp, oldTimestamp: oldTimestamp});
       }
     });
@@ -318,7 +318,7 @@ bot.on("channelUpdate", (channel, oldChannel) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("channelUpdate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: channelUpdate | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: channelUpdate | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "channelUpdate", null, {channel: channel, oldChannel: oldChannel});
       }
     });
@@ -329,7 +329,7 @@ bot.on("guildAvailable", guild => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildAvailable")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildAvailable | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildAvailable | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildAvailable", null, guild);
       }
     });
@@ -340,7 +340,7 @@ bot.on("guildBanAdd", (guild, user) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildBanAdd")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildBanAdd | User: " + user.username + "#" + user.discriminator + " (" + user.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildBanAdd | User: " + user.username + "#" + user.discriminator + " (" + user.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildBanAdd", null, {guild: guild, user: user});
       }
     });
@@ -351,7 +351,7 @@ bot.on("guildBanRemove", (guild, user) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildBanRemove")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildBanRemove | User: " + user.username + "#" + user.discriminator + " (" + user.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildBanRemove | User: " + user.username + "#" + user.discriminator + " (" + user.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildBanRemove", null, {guild: guild, user: user});
       }
     });
@@ -362,7 +362,7 @@ bot.on("guildCreate", guild => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildCreate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildCreate | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildCreate | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildCreate", null, guild);
       }
     });
@@ -373,7 +373,7 @@ bot.on("guildDelete", guild => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildDelete")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildDelete | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildDelete | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildDelete", null, guild);
       }
     });
@@ -384,7 +384,7 @@ bot.on("guildEmojisUpdate", (guild, emojis, oldEmojis) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildEmojisUpdate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildEmojisUpdate | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildEmojisUpdate | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildEmojisUpdate", null, {guild: guild, emojis: emojis, oldEmojis: oldEmojis});
       }
     });
@@ -395,7 +395,7 @@ bot.on("guildMemberAdd", (guild, member) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildMemberAdd")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildMemberAdd | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildMemberAdd | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildMemberAdd", null, {guild: guild, member: member});
       }
     });
@@ -406,7 +406,7 @@ bot.on("guildMemberChunk", (guild, members) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildMemberChunk")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildMemberChunk | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildMemberChunk | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildMemberChunk", null, {guild: guild, members: members});
       }
     });
@@ -417,7 +417,7 @@ bot.on("guildMemberRemove", (guild, member) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildMemberRemove")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildMemberRemove | User: " + `${member.username ? member.username + "#" + member.discriminator : "?"}` + " (" + member.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildMemberRemove | User: " + `${member.username ? member.username + "#" + member.discriminator : "?"}` + " (" + member.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildMemberRemove", null, {guild: guild, member: member});
       }
     });
@@ -428,7 +428,7 @@ bot.on("guildMemberUpdate", (guild, member, oldMember) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildMemberUpdate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildMemberUpdate | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildMemberUpdate | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildMemberUpdate", null, {guild: guild, member: member, oldMember: oldMember});
       }
     });
@@ -439,7 +439,7 @@ bot.on("guildRoleCreate", (guild, role) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildRoleCreate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildRoleCreate | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildRoleCreate | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildRoleCreate", null, {guild: guild, role: role});
       }
     });
@@ -450,7 +450,7 @@ bot.on("guildRoleDelete", (guild, role) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildRoleDelete")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildRoleDelete | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildRoleDelete | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildRoleDelete", null, {guild: guild, role: role});
       }
     });
@@ -461,7 +461,7 @@ bot.on("guildRoleUpdate", (guild, role, oldRole) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildRoleUpdate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildRoleUpdate | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildRoleUpdate | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildRoleUpdate", null, {guild: guild, role: role, oldRole: oldRole});
       }
     });
@@ -472,7 +472,7 @@ bot.on("guildUnavailable", guild => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildUnavailable")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildUnavailable | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildUnavailable | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildUnavailable", null, guild);
       }
     });
@@ -483,7 +483,7 @@ bot.on("guildUpdate", (guild, oldGuild) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("guildUpdate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: guildUpdate | Guild: " + guild.name + " (" + guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: guildUpdate | Guild: " + guild.name + " (" + guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "guildUpdate", null, {guild: guild, oldGuild: oldGuild});
       }
     });
@@ -494,7 +494,7 @@ bot.on("messageDelete", msg => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageDelete")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageDelete | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageDelete | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${msg.channel.type == 1 ? "dm" : "guild"}`, "event", "messageDelete", null, msg);
       }
     });
@@ -505,7 +505,7 @@ bot.on("messageDelete", msg => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageDelete")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageDelete | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageDelete | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${msg.channel.type == 1 ? "dm" : "guild"}`, "event", "messageDelete", null, msg);
       }
     });
@@ -516,7 +516,7 @@ bot.on("messageDeleteBulk", msgs => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageDeleteBulk")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageDeleteBulk | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageDeleteBulk | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${msgs[0].channel.type == 1 ? "dm" : "guild"}`, "event", "messageDeleteBulk", null, msgs);
       }
     });
@@ -527,7 +527,7 @@ bot.on("messageReactionAdd", (msg, emoji, userID) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageReactionAdd")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageReactionAdd | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageReactionAdd | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${msg.channel.type == 1 ? "dm" : "guild"}`, "event", "messageReactionAdd", null, {msg: msg, emoji: emoji, userID: userID});
       }
     });
@@ -538,7 +538,7 @@ bot.on("messageReactionRemove", (msg, emoji, userID) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageReactionRemove")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageReactionRemove | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageReactionRemove | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${msg.channel.type == 1 ? "dm" : "guild"}`, "event", "messageReactionRemove", null, {msg: msg, emoji: emoji, userID: userID});
       }
     });
@@ -549,7 +549,7 @@ bot.on("messageReactionRemoveAll", msg => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageReactionRemoveAll")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageReactionRemoveAll | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageReactionRemoveAll | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${msg.channel.type == 1 ? "dm" : "guild"}`, "event", "messageReactionRemoveAll", null, msg);
       }
     });
@@ -564,7 +564,7 @@ bot.on("messageUpdate", (msg, oldMsg) => {
     Object.keys(modulesArr).forEach(ma => {
       Object.keys(modulesArr[ma]).forEach(ac => {
         if (modulesArr[ma][ac].events.includes("messageUpdate")) {
-          console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageUpdate | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+          console.log("Action Set: " + ac + " (" + ma + ") | Event: messageUpdate | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ") | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
           modulesArr[ma][ac].actions(`${msg.member == 1 ? "guild" : "dm"}`, "event", "messageUpdate", null, {msg: msg, oldMsg: oldMsg});
         }
       });
@@ -576,7 +576,7 @@ bot.on("messageReactionRemoveAll", msg => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("messageReactionRemoveAll")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: messageReactionRemoveAll | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: messageReactionRemoveAll | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${msg.channel.type == 1 ? "dm" : "guild"}`, "event", "messageReactionRemoveAll", null, msg);
       }
     });
@@ -587,7 +587,7 @@ bot.on("typingStart", (channel, user) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("typingStart")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: typingStart | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: typingStart | Guild: " + channel.guild.name + " (" + channel.guild.id + ")");
         modulesArr[ma][ac].actions(`${channel.type == 1 ? "dm" : "guild"}`, "event", "typingStart", null, {channel: channel, user: user});
       }
     });
@@ -598,7 +598,7 @@ bot.on("unavailableGuildCreate", guild => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("unavailableGuildCreate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: unavailableGuildCreate");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: unavailableGuildCreate");
         modulesArr[ma][ac].actions("guild", "event", "unavailableGuildCreate", null, guild);
       }
     });
@@ -609,7 +609,7 @@ bot.on("voiceChannelJoin", (member, newChannel) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("voiceChannelJoin")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: voiceChannelJoin | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: voiceChannelJoin | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "voiceChannelJoin", null, {member: member, newChannel: newChannel});
       }
     });
@@ -620,7 +620,7 @@ bot.on("voiceChannelLeave", (member, oldChannel) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("voiceChannelLeave")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: voiceChannelLeave | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: voiceChannelLeave | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "voiceChannelLeave", null, {member: member, oldChannel: oldChannel});
       }
     });
@@ -631,7 +631,7 @@ bot.on("voiceChannelSwitch", (member, newChannel, oldChannel) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("voiceChannelSwitch")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: voiceChannelSwitch | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: voiceChannelSwitch | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "voiceChannelSwitch", null, {member: member, newChannel: newChannel, oldChannel: oldChannel});
       }
     });
@@ -642,7 +642,7 @@ bot.on("voiceStateUpdate", (member, oldState) => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("voiceStateUpdate")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: voiceStateUpdate | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: voiceStateUpdate | User: " + member.username + "#" + member.discriminator + " (" + member.id + ") | Guild: " + member.guild.name + " (" + member.guild.id + ")");
         modulesArr[ma][ac].actions("guild", "event", "voiceStateUpdate", null, {member: member, oldState: oldState});
       }
     });
