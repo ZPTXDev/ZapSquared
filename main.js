@@ -6,6 +6,7 @@ var fs = require('fs');
 var bot = new Eris(settings.get("token"));
 var modulesArr = {};
 var cooldowns = {};
+var mgrList = [];
 var ready = false;
 
 function roundTo(n, digits) {
