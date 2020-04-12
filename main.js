@@ -265,7 +265,7 @@ bot.on("messageCreate", msg => {
           }
         }
         else {
-          calc = (cooldowns[msg.author.id].find(c => c.module == module && c.actionSet == actionSet).expires - new Date().getTime()) / 1000;
+          calc = roundTo((cooldowns[msg.author.id].find(c => c.module == module && c.actionSet == actionSet).expires - new Date().getTime()) / 1000, 1);
           msg.channel.createMessage("<:cross:621336829601382421> | This command is on cooldown for another **" + calc + "** seconds.");
         }
       }
