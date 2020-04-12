@@ -116,7 +116,7 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
             if (ext != "js") {
               console.log("[!] Caught a non-JS file (" + sf.name + ") in the '" + f.name + "' module folder. I'll ignore it, but be careful where you leave your stuff!");
             }
-            else if (!require("./modules/" + f.name + "/" + sf.name).triggers || !require("./modules/" + f.name + "/" + sf.name).desc || !require("./modules/" + f.name + "/" + sf.name).events || !require("./modules/" + f.name + "/" + sf.name).perms || !require("./modules/" + f.name + "/" + sf.name).actions || !require("./modules/" + f.name + "/" + sf.name).cooldown) {
+            else if (!require("./modules/" + f.name + "/" + sf.name).triggers || !require("./modules/" + f.name + "/" + sf.name).desc || !require("./modules/" + f.name + "/" + sf.name).events || !require("./modules/" + f.name + "/" + sf.name).perms || !require("./modules/" + f.name + "/" + sf.name).actions || !require("./modules/" + f.name + "/" + sf.name).cooldown && require("./modules/" + f.name + "/" + sf.name).cooldown != 0) {
               console.log("[!] " + sf.name + " (in " + f.name + ") doesn't look like a ZapSquared file (or it could be missing something). I'll ignore it for now.");
             }
             else {
