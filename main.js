@@ -89,9 +89,13 @@ if (settings.get("prefix").includes(" ")) {
   console.log("[!] Spaces aren't supported in the prefix. I've automatically reset it to 'z/'.");
 }
 
+module.exports.reload = reload;
 module.exports.bot = bot;
 module.exports.settings = settings;
 module.exports.modulesArr = modulesArr;
+module.exports.mgrList = mgrList;
+module.exports.roundTo = roundTo;
+module.exports.msToTime = msToTime;
 
 console.log("Loading modules...");
 
