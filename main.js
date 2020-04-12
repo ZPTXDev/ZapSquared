@@ -231,24 +231,28 @@ bot.on("messageCreate", msg => {
         permsNeeded = [];
       }
       permsMissing = [];
-      if (permsNeeded.includes("dmOnly") && msg.member) {permsMissing.push("`dmOnly`");}
-      else if (permsNeeded.length > 0 && !msg.member) {permsMissing.push("`guildOnly`");}
+      if (permsNeeded.includes("managerOnly") && !settings.get("managers").includes(msg.author.id)) {permsMissing.push("managerOnly");}
+      if (permsNeeded.includes("dmOnly") && msg.member) {permsMissing.push("dmOnly");}
+      else if (permsNeeded.length > 0 && !msg.member) {permsMissing.push("guildOnly");}
       else if (permsNeeded.length > 0 && msg.member) {
         permsNeeded.forEach(pn => {
-          if (pn != "guildOnly" && !msg.member.permission.has(pn)) {permsMissing.push("`" + pn + "`");}
+          if (pn != "managerOnly" && pn != "guildOnly" && !msg.member.permission.has(pn)) {permsMissing.push(pn);}
         });
       }
       if (permsMissing.length == 1) {str = "permission";}
       else {str = "permissions";}
-      if (managerOnly && !settings.get("managers").includes(msg.author.id)) {
+      if (permsMissing.includes("managerOnly") && !settings.get("managers").includes(msg.author.id)) {
         msg.channel.createMessage("<:cross:621336829601382421> | You need to be a **Manager** to use that.");
       }
-      else if (permsMissing.length > 0 && !settings.get("managers").includes(msg.author.id)) {
-        msg.channel.createMessage("<:cross:621336829601382421> | You are missing the " + permsMissing.join(", ") + " " + str + ".");
+      else if (permsMissing.length > 0 && !settings.get("managers").includes(msg.author.id) || permsMissing.includes("dmOnly") || permsMissing.includes("guildOnly")) {
+        msg.channel.createMessage("<:cross:621336829601382421> | You are missing the " + permsMissing.map(pm => "`" + pm + "`").join(", ") + " " + str + ".");
+        if ((permsMissing.includes("dmOnly") || permsMissing.includes("guildOnly")) && settings.get("managers").includes(msg.author.id)) {
+          msg.channel.createMessage("<:cross:621336829601382421> | Could not bypass missing `" + permsMissing[0] + "` permission as this could potentially cause a crash.");
+        }
       }
       else {
         if (permsMissing.length > 0 && settings.get("managers").includes(msg.author.id)) {
-          msg.channel.createMessage("<:orange:697688190219452496> | You bypassed the permission check for " + str + ": " + permsMissing.join(", "));
+          msg.channel.createMessage("<:orange:697688190219452496> | You bypassed the permission check for " + str + ": " + permsMissing.map(pm => "`" + pm + "`").join(", "));
         }
         if (!cooldowns[msg.author.id]) {cooldowns[msg.author.id] = [];}
         if (!cooldowns[msg.author.id].find(c => c.module == module && c.actionSet == actionSet) || settings.get("managers").includes(msg.author.id)) {
