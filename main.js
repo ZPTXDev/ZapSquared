@@ -119,6 +119,7 @@ fs.readdir("modules", {withFileTypes: true}, (err, files) => {
             else if (!require("./modules/" + f.name + "/" + sf.name).triggers || !require("./modules/" + f.name + "/" + sf.name).desc || !require("./modules/" + f.name + "/" + sf.name).events || !require("./modules/" + f.name + "/" + sf.name).perms || !require("./modules/" + f.name + "/" + sf.name).actions || !require("./modules/" + f.name + "/" + sf.name).cooldown && require("./modules/" + f.name + "/" + sf.name).cooldown != 0) {
               console.log("[!] " + sf.name + " (in " + f.name + ") doesn't look like a ZapSquared file (or it could be missing something). I'll ignore it for now.");
             }
+            else if (sf.name.includes(" ")) {console.log("[!] Spaces in action set names can cause issues. I won't load " + sf.name + " (in " + f.name + ").");}
             else {
               modulesArr[f.name][sf.name] = reload("./modules/" + f.name + "/" + sf.name);
               modulesArr[f.name][sf.name].triggers.forEach(t => {
