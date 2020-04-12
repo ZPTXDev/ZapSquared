@@ -221,11 +221,6 @@ bot.on("messageCreate", msg => {
     if (exists) {
       console.log("Action Set: " + actionSet + " (" + module + ") | Command: " + cmd + " | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ")" + `${!msg.member ? "" : " | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")"}`);
       perms = action.perms;
-      if (perms.includes("managerOnly")) {
-        managerOnly = true;
-      }
-      else {managerOnly = false;}
-      perms.splice(perms.indexOf("managerOnly"), 1);
       if (perms.includes("dmOnly")) {
         permsNeeded = ["dmOnly"];
       }
