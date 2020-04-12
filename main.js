@@ -186,7 +186,7 @@ bot.on("ready", () => {
 });
 
 bot.on("connect", id => {
-  console.log("Shard" + id + " connecting.");
+  console.log("Shard " + id + " connecting.");
 });
 
 bot.on("shardDisconnect", (err, id) => {
