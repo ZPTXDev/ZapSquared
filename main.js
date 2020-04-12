@@ -150,7 +150,6 @@ bot.on("ready", () => {
     console.log("Connected to " + bot.guilds.size + " guilds and " + bot.users.size + " users");
     managers = settings.get("managers");
     failedMgrLoad = [];
-    mgrList = [];
     managers.forEach(manager => {
       if (!bot.users.get(manager)) {
         failedMgrLoad.push(manager);
