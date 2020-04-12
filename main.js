@@ -178,7 +178,7 @@ bot.on("ready", () => {
   Object.keys(modulesArr).forEach(ma => {
     Object.keys(modulesArr[ma]).forEach(ac => {
       if (modulesArr[ma][ac].events.includes("ready")) {
-        console.log("Action Set: " + ac.slice(0, -3) + " (" + ma + ") | Event: ready");
+        console.log("Action Set: " + ac + " (" + ma + ") | Event: ready");
         modulesArr[ma][ac].actions(null, "event", "ready", null, null);
       }
     });
@@ -219,7 +219,7 @@ bot.on("messageCreate", msg => {
       });
     });
     if (exists) {
-      console.log("Action Set: " + actionSet.slice(0, -3) + " (" + module + ") | Command: " + cmd + " | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ")" + `${!msg.member ? "" : " | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")"}`);
+      console.log("Action Set: " + actionSet + " (" + module + ") | Command: " + cmd + " | User: " + msg.author.username + "#" + msg.author.discriminator + " (" + msg.author.id + ")" + `${!msg.member ? "" : " | Guild: " + msg.channel.guild.name + " (" + msg.channel.guild.id + ")"}`);
       perms = action.perms;
       if (perms.includes("managerOnly")) {
         managerOnly = true;
