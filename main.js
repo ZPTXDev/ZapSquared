@@ -5,6 +5,7 @@ var reload = require('require-reload')(require);
 var fs = require('fs');
 var bot = new Eris(settings.get("token"));
 var modulesArr = {};
+var registeredTriggers = {};
 var cooldowns = {};
 var mgrList = [];
 var ready = false;
@@ -90,56 +91,68 @@ if (settings.get("prefix").includes(" ")) {
   console.log("[!] Spaces aren't supported in the prefix. I've automatically reset it to 'z/'.");
 }
 
+module.exports.fs = fs;
 module.exports.reload = reload;
 module.exports.bot = bot;
 module.exports.settings = settings;
 module.exports.modulesArr = modulesArr;
+module.exports.registeredTriggers = registeredTriggers;
 module.exports.mgrList = mgrList;
 module.exports.roundTo = roundTo;
 module.exports.msToTime = msToTime;
 
 console.log("Loading modules...");
 
-registeredTriggers = {};
 fs.readdir("modules", {withFileTypes: true}, (err, files) => {
-  files.forEach(f => {
-    if (!f.isDirectory()) {console.log("[!] Caught a file (" + f.name + ") in the modules folder. I won't load this, but shouldn't it be in a subfolder?");}
-    else if (f.name.includes(" ")) {console.log("[!] Spaces in module names can cause issues. I won't load " + f.name + ".");}
-    else {
-      modulesArr[f.name] = [];
-      fs.readdir("modules/" + f.name, {withFileTypes: true}, (err, subfiles) => {
-        subfiles.forEach(sf => {
-          if (!sf.isFile()) {console.log("[!] Caught a non-file (" + sf.name + ") in the '" + f.name + "' module folder. I'll ignore it, but be careful where you leave your stuff!");}
+  if (err) {
+    console.log("[!] An error occurred while reading the modules folder:\n" + err);
+    process.exit(1);
+  }
+  else {
+    files.forEach(f => {
+      if (!f.isDirectory()) {console.log("[!] Caught a file (" + f.name + ") in the modules folder. I won't load this, but shouldn't it be in a subfolder?");}
+      else if (f.name.includes(" ")) {console.log("[!] Spaces in module names can cause issues. I won't load " + f.name + ".");}
+      else {
+        modulesArr[f.name] = [];
+        fs.readdir("modules/" + f.name, {withFileTypes: true}, (err, subfiles) => {
+          if (err) {
+            console.log("[!] An error occurred while reading the " + f.name + " folder:\n" + err);
+          }
           else {
-            nameSplit = sf.name.split(".");
-            ext = nameSplit[nameSplit.length - 1];
-            if (ext != "js") {
-              console.log("[!] Caught a non-JS file (" + sf.name + ") in the '" + f.name + "' module folder. I'll ignore it, but be careful where you leave your stuff!");
-            }
-            else if (!require("./modules/" + f.name + "/" + sf.name).triggers || !require("./modules/" + f.name + "/" + sf.name).desc || !require("./modules/" + f.name + "/" + sf.name).events || !require("./modules/" + f.name + "/" + sf.name).perms || !require("./modules/" + f.name + "/" + sf.name).actions || !require("./modules/" + f.name + "/" + sf.name).cooldown && require("./modules/" + f.name + "/" + sf.name).cooldown != 0) {
-              console.log("[!] " + sf.name + " (in " + f.name + ") doesn't look like a ZapSquared file (or it could be missing something). I'll ignore it for now.");
-            }
-            else if (sf.name.includes(" ")) {console.log("[!] Spaces in action set names can cause issues. I won't load " + sf.name + " (in " + f.name + ").");}
-            else {
-              modulesArr[f.name][sf.name.slice(0, -3)] = reload("./modules/" + f.name + "/" + sf.name);
-              modulesArr[f.name][sf.name.slice(0, -3)].triggers.forEach(t => {
-                if (!registeredTriggers[t]) {registeredTriggers[t] = [];}
-                else {
-                  timesCount = registeredTriggers[t].length + 1;
-                  console.log("[!] Saw trigger " + t + " " + timesCount + " times (in " + sf.name.slice(0, -3) + ", part of " + f.name + "). I'll only register the first trigger, so this trigger will be ignored.");
+            subfiles.forEach(sf => {
+              if (!sf.isFile()) {console.log("[!] Caught a non-file (" + sf.name + ") in the '" + f.name + "' module folder. I'll ignore it, but be careful where you leave your stuff!");}
+              else {
+                nameSplit = sf.name.split(".");
+                ext = nameSplit[nameSplit.length - 1];
+                if (ext != "js") {
+                  console.log("[!] Caught a non-JS file (" + sf.name + ") in the '" + f.name + "' module folder. I'll ignore it, but be careful where you leave your stuff!");
                 }
-                registeredTriggers[t].push({module: f.name, actionSet: sf.name.slice(0, -3)});
-              });
-              if (modulesArr[f.name][sf.name.slice(0, -3)].events.includes("preReady")) {
-                console.log("Action Set: " + sf.name.slice(0, -3) + " (" + f.name + ") | Event: preReady");
-                modulesArr[f.name][sf.name.slice(0, -3)].actions(null, "event", "preReady", null, null);
+                else if (!require("./modules/" + f.name + "/" + sf.name).triggers || !require("./modules/" + f.name + "/" + sf.name).desc || !require("./modules/" + f.name + "/" + sf.name).events || !require("./modules/" + f.name + "/" + sf.name).perms || !require("./modules/" + f.name + "/" + sf.name).actions || !require("./modules/" + f.name + "/" + sf.name).cooldown && require("./modules/" + f.name + "/" + sf.name).cooldown != 0) {
+                  console.log("[!] " + sf.name + " (in " + f.name + ") doesn't look like a ZapSquared file (or it could be missing something). I'll ignore it for now.");
+                }
+                else if (sf.name.includes(" ")) {console.log("[!] Spaces in action set names can cause issues. I won't load " + sf.name + " (in " + f.name + ").");}
+                else {
+                  modulesArr[f.name][sf.name.slice(0, -3)] = reload("./modules/" + f.name + "/" + sf.name);
+                  modulesArr[f.name][sf.name.slice(0, -3)].triggers.forEach(t => {
+                    if (!registeredTriggers[t]) {registeredTriggers[t] = [];}
+                    else {
+                      timesCount = registeredTriggers[t].length + 1;
+                      console.log("[!] Saw trigger " + t + " " + timesCount + " times (in " + sf.name.slice(0, -3) + ", part of " + f.name + "). I'll only register the first trigger, so this trigger will be ignored.");
+                    }
+                    registeredTriggers[t].push({module: f.name, actionSet: sf.name.slice(0, -3)});
+                  });
+                  if (modulesArr[f.name][sf.name.slice(0, -3)].events.includes("preReady")) {
+                    console.log("Action Set: " + sf.name.slice(0, -3) + " (" + f.name + ") | Event: preReady");
+                    modulesArr[f.name][sf.name.slice(0, -3)].actions(null, "event", "preReady", null, null);
+                  }
+                }
               }
-            }
+            });
           }
         });
-      });
-    }
-  });
+      }
+    });
+  }
 });
 
 console.log("Connecting to Discord...");
